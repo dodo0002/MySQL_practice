@@ -211,11 +211,33 @@
 -- SET author_id = 7
 -- WHERE book_id = 1;
 
-SELECT CONCAT(a.first_name," ", a.last_name) AS author_full_name, COUNT(b.author_id) AS total FROM books b
-JOIN Authors a
-ON b.author_id = a.author_id 
-GROUP BY CONCAT(a.first_name," ", a.last_name)
-ORDER BY COUNT(author_id) DESC;
+
+-- SELECT CONCAT(a.first_name," ", a.last_name) AS author_full_name, COUNT(b.author_id) AS total FROM books b
+-- JOIN Authors a
+-- ON b.author_id = a.author_id 
+-- GROUP BY CONCAT(a.first_name," ", a.last_name)
+-- ORDER BY COUNT(author_id) DESC;
+
+UPDATE books
+SET published_year = 2020
+WHERE genre LIKE "%Science Fiction%";
+
+UPDATE Authors
+SET birth_year = birth_year - 5
+WHERE first_name = 'George' OR last_name = 'George';
+
+UPDATE Loans
+SET loan_date = CURRENT_DATE(),
+    return_date = DATE_ADD(CURRENT_DATE(), INTERVAL 30 DAY)
+WHERE return_date IS NULL OR DATEDIFF(CURRENT_DATE(), loan_date) > 30; --下錯了 這邊是AND不是OR
+
+DELETE FROM books
+WHERE genre = "Fantasy";
+
+DELETE FROM Loans
+WHERE loan_date < '2024-12-31' AND return_date IS NOT NULL;
+
+SELECT * FROM books;
 
 -- DESCRIBE Authors;
 -- DESCRIBE Members;
