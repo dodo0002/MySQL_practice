@@ -34,9 +34,17 @@ try {
   // console.log(results);
   // console.log("資料新增成功! 恭喜");
 
-  const [result, fields] = await connection.query("SELECT * FROM users");
+  const id = 1;
+
+  const [result, fields] = await connection.query(
+    "SELECT email FROM users  WHERE id = " + id
+  );
   console.log(result);
-  console.log("資料成功顯示!");
+  // console.log(id);
+  if (Object.keys(result).length == 0) {
+    console.log("使用者不存在");
+  }
+  // console.log(Object.keys(id));
 
   //   console.log(results);
   //   console.log(fields);
