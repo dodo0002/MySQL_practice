@@ -34,16 +34,27 @@ try {
   // console.log(results);
   // console.log("資料新增成功! 恭喜");
 
-  const id = 1;
+  // const id = 1;
 
-  const [result, fields] = await connection.query(
-    "SELECT email FROM users  WHERE id = " + id
+  const [results, fields] = await connection.query(
+    "UPDATE users SET email = 'new@email.com' WHERE id = '1'"
   );
-  console.log(result);
-  // console.log(id);
-  if (Object.keys(result).length == 0) {
-    console.log("使用者不存在");
+  const sql = [results, fields];
+  console.log(sql[0]);
+  console.log("已更新email");
+
+  sql = await connection.query("SELECT id FROM users WHERE id = '1'");
+  // const sql = [results, fields];
+
+  if (sql[0].length != 0) {
+    [results, fields] = await connection.query("DELETE users WHERE id = '1'");
+    console.log("刪除完成");
   }
+
+  // console.log(id);
+  // if (Object.keys(result).length == 0) {
+  //   console.log("使用者不存在");
+  // }
   // console.log(Object.keys(id));
 
   //   console.log(results);
