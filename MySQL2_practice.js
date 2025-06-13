@@ -36,19 +36,29 @@ try {
 
   // const id = 1;
 
+  //  = await connection.query(
+  //   "UPDATE users SET email = 'new@email.com' WHERE id = '1'"
+  // );
+
+  // console.log("已更新email");
+
+  const [mei] = await connection.query(
+    "INSERT INTO users(name, age, email) VALUES('tony', 29, 'does not exist')"
+  );
+
   const [results, fields] = await connection.query(
-    "UPDATE users SET email = 'new@email.com' WHERE id = '1'"
+    "SELECT * FROM users WHERE id = '2'"
   );
   const sql = [results, fields];
-  console.log(sql[0]);
-  console.log("已更新email");
-
-  sql = await connection.query("SELECT id FROM users WHERE id = '1'");
+  // console.log(sql);
   // const sql = [results, fields];
 
   if (sql[0].length != 0) {
-    [results, fields] = await connection.query("DELETE users WHERE id = '1'");
+    const [doom] = await connection.query("DELETE FROM users WHERE id = '2'");
     console.log("刪除完成");
+    console.log(sql[0]);
+  } else {
+    console.log("查無此筆資料，請重新操作!");
   }
 
   // console.log(id);
